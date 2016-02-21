@@ -20,4 +20,8 @@ class ListsExample {
 	def void printRegions() {
 		getRegionArrayListWithLinkedHashMap().each { region -> println "$region.name $region.code $region.note" }
 	}
+
+	List getPowerOfTwo(int n) {
+		return (0..n).collect { 2 ** it }
+	}
 }
