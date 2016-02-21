@@ -27,9 +27,12 @@ dependencies {
 	compile 'org.apache.httpcomponents:httpmime:4.3'
 	compile 'org.apache.poi:poi:3.13'
 	compile 'org.apache.poi:poi-ooxml:3.13'
-	testCompile('org.codehaus.groovy:groovy-all:2.4.4')
-	testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
-	testCompile('cglib:cglib:2.2')
+	testCompile 'org.codehaus.groovy:groovy-all:2.4.4'
+	testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+	testCompile 'org.gebish:geb-core:0.+'
+	testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.52.0"
+	testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.52.0"
+	testCompile 'cglib:cglib:2.2'
 	testCompile 'org.testng:testng:6.+'
 }
 
