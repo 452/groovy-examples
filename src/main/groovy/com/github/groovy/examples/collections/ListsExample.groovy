@@ -1,4 +1,4 @@
-package com.github.groovy.examples.lists
+package com.github.groovy.examples.collections
 
 class ListsExample {
 
@@ -23,5 +23,10 @@ class ListsExample {
 
 	List getPowerOfTwo(int n) {
 		return (0..n).collect { 2 ** it }
+	}
+
+	def collections () {
+		def persons = [name:'Alex', name:'Max', name:'Mike']
+		//persons*.name
 	}
 }
