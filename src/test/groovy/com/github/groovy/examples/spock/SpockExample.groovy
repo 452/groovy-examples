@@ -7,16 +7,26 @@ class SpockExample extends Specification {
 
 	@Unroll
 	def "check positive #input #expected"() {
-		given: "a new helper"
-		def helper = input as int[]
+		//given: "a new helper"
+
+		//def helper = input
 		when: "I filter a list of numbers"
-		def result = (input as int[]).collect { it.abs() }
+
+		def result = input.collect { it.abs() }
+
 		then: "Only the positive numbers are returned"
-		result == expected as int[]
+
+		result == expected
+
 		where:
-		input | expected
-		[]| []
-		[7, 9, 30]| [7, 9, 30]
-		[-7, -9, -30]| [7, 9, 30]
+
+		input        |  expected
+		[]           |  []
+		[ 7, 9, 30]  |  [7, 9, 30]
+		[-7,-9,-30]  |  [7, 9, 30]
+		[ 7,-9,-30]  |  [7, 9, 30]
+		[-7, 9,-30]  |  [7, 9, 30]
+		[-7,-9, 30]  |  [7, 9, 30]
+		[ 7,-9, 30]  |  [7, 9, 30]
 	}
 }
