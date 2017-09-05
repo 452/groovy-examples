@@ -31,7 +31,7 @@ def makeAssessmentsListForDownload() {
 	def assessmentsPathsMap = makeMapWithAssessmentPath('C:\\Users\\v\\data-formin-result.csv')
 	def arr = [:]
 	readAssessmentsListWith500ErrorCode('C:\\Users\\v\\data-hs-500.csv').each { assessmentName ->
-		arr.put(assessmentName,  getAssessmentPathByName(assessmentsPathsMap, assessmentName).replaceAll("\\s",""))
+		arr.put(assessmentName,  getAssessmentPathByName(assessmentsPathsMap, assessmentName))
 	}
 	arr
 }
@@ -50,10 +50,10 @@ def makeMapWithAssessmentPath(def fileName) {
 		def assessmentPath = line.tokenize(',')[1]
 		def assessment = arr.get(assessmentName)
 		if (assessment == null) {
-			arr.put(assessmentName, assessmentPath)
+			arr.put(assessmentName, assessmentPath.replaceAll("\\s",""))
 		} else {
 			assessment = assessment +'*'+ assessmentPath
-			arr.put(assessmentName, assessment)
+			arr.put(assessmentName, assessment.replaceAll("\\s",""))
 		}
 	}
 	log("All assessment paths count: $assessmentCount")
