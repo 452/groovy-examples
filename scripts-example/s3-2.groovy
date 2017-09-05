@@ -22,9 +22,9 @@ def main() {
 		def assessmentPathOnS3 = assessment.value
 		makeFolder('bembi', assessmentPathOnS3)
 		downloadAssessments('bembi', assessmentPathOnS3)
-		println "${i+1} from ${assessmentsListForDownload.size()}"
+		log("${i+1} from ${assessmentsListForDownload.size()}")
 	}
-	println 'done'
+	log('done')
 }
 
 def makeAssessmentsListForDownload() {
@@ -56,7 +56,7 @@ def makeMapWithAssessmentPath(def fileName) {
 			arr.put(assessmentName, assessment)
 		}
 	}
-	println "All assessment paths count: $assessmentCount"
+	log("All assessment paths count: $assessmentCount")
 	arr
 }	
 
@@ -69,7 +69,7 @@ def readAssessmentsListWith500ErrorCode(def fileName) {
 		def assessmentName = line.tokenize(',')[1]
 		arr << assessmentName
 	}
-	println "All assessment with 500 error code count: $assessmentCount"
+	log("All assessment with 500 error code count: $assessmentCount")
 	arr
 }
 
@@ -97,11 +97,21 @@ def makeFolder(def folderName, def path) {
 
 def downloadAssessments(def folderName, def paths) {
 	paths.tokenize('*').each { path ->
-		println path
-		S3Object objectComplete = s3Service.getObject(bucketName, path);
-		def outFile = new File(getFilePath(folderName, path))
-		outFile << objectComplete.getDataInputStream().getText()
+		try {
+			log(path)
+			S3Object objectComplete = s3Service.getObject(bucketName, path);
+			def outFile = new File(getFilePath(folderName, path))
+			outFile << objectComplete.getDataInputStream().getText()
+		} catch (Exception e) {
+			log("Error: $e")
+		}
 	}
+}
+
+def log(def message) {
+	def logFile = new File('s3.log')
+	logFile << '\n' << message
+	println message
 }
 
 def setup() {
