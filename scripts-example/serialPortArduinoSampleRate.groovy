@@ -19,13 +19,16 @@ csv = new File('imu.csv')
 samplerate = 0
 @Field
 start = 0
-
+prevSerialPortData = ''
 addHeaderForNewCSV()
 
 reader.eachLine(){ serialPortData ->
-    // println serialPortData
-    csv << "$serialPortData\n"
-    samplerateInfo()
+    if (prevSerialPortData != serialPortData) {
+    	// println serialPortData
+	    csv << "$serialPortData\n"
+	    samplerateInfo()
+	    prevSerialPortData = serialPortData
+	}
 }
 
 def samplerateInfo() {
